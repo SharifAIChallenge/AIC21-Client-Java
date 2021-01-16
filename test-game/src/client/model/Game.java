@@ -1,13 +1,24 @@
 package client.model;
 
+import client.model.enums.Owner;
+import com.google.gson.JsonObject;
+import common.network.Json;
+import common.network.data.Message;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Game {
     private Graph graph;
     private int myPoint;
     private int enemyPoint;
     private int turn;
+    private Consumer<Message> sender;
+
+    public Game(Consumer<Message> sender) {
+        this.sender = sender;
+    }
 
     /*
      * @return list of game nodes
@@ -51,13 +62,9 @@ public class Game {
         return turn;
     }
 
-    public void attack(Node myNode, Node enemyNode) {
-        //TODO
+    public void doAction(Action action) {
+        JsonObject payload = (JsonObject) Json.GSON.toJsonTree(action);
+        Message msg = new Message("5", payload, "tokken");
+        sender.accept(msg);
     }
-
-    public void movePower(Node myNode, int power) {
-        //TODO
-    }
-
-
 }

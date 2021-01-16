@@ -1,5 +1,7 @@
 package client.model;
 
+import client.model.enums.Owner;
+
 import java.util.ArrayList;
 
 public class Node {

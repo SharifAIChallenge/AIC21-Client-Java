@@ -1,4 +1,4 @@
-package client.model;
+package client.model.enums;
 
 public enum Owner {
     MINE,
