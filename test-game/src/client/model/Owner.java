@@ -1,7 +1,7 @@
 package client.model;
 
 public enum Owner {
-    YOUR,
+    MINE,
     ENEMY,
-    NONE
+    FREE
 }

@@ -1,19 +1,20 @@
 package client.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Graph {
     private ArrayList<Node> nodes;
 
-    public Node getNodeWithId(String nodeId) {
-        for (Node node : nodes) {
-            if (node.getId().equals(nodeId))
-                return node;
-        }
-        return null;
+    public Graph() {
+        nodes = new ArrayList<>();
     }
 
     public void addNode(Node node) {
         nodes.add(node);
+    }
+
+    public List<Node> getAllNodes() {
+        return nodes;
     }
 }

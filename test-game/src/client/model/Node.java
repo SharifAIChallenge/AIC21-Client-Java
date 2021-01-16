@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Node {
     private String id;
     private Owner owner;
-    private int value;
+    private int power;
     private ArrayList<Node> neighbors;
 
     public String getId() {
@@ -24,12 +24,16 @@ public class Node {
         this.owner = owner;
     }
 
-    public int getValue() {
-        return value;
+    // return -1 if you don't have permission to access node power
+    public int getPower() {
+        if (owner != Owner.MINE) {
+            return -1;
+        }
+        return power;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setPower(int power) {
+        this.power = power;
     }
 
     public ArrayList<Node> getNeighbors() {
