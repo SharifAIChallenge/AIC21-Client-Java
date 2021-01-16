@@ -1,4 +1,4 @@
-package model;
+package client.model;
 
 public enum Owner {
     YOUR,
