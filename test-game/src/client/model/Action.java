@@ -5,7 +5,7 @@ import client.model.enums.ActionType;
 public class Action {
     private ActionType type;
     private Node sourceNode;
-    private Node destinationNode;
+    private Node targetNode;
 
     public Action(ActionType type) {
         this.type = type;
@@ -14,7 +14,7 @@ public class Action {
     public Action(ActionType type, Node sNode, Node tNode) {
         this.type = type;
         sourceNode = sNode;
-        destinationNode = tNode;
+        targetNode = tNode;
     }
 
     public ActionType getType() {
@@ -25,8 +25,8 @@ public class Action {
         return sourceNode;
     }
 
-    public Node getDestinationNode() {
-        return destinationNode;
+    public Node getTargetNode() {
+        return targetNode;
     }
 
     public void setType(ActionType type) {
@@ -37,7 +37,7 @@ public class Action {
         this.sourceNode = sourceNode;
     }
 
-    public void setDestinationNode(Node destinationNode) {
-        this.destinationNode = destinationNode;
+    public void setTargetNode(Node targetNode) {
+        this.targetNode = targetNode;
     }
 }
