@@ -8,7 +8,7 @@ public class Node {
     private String id;
     private Owner owner;
     private int power;
-    private ArrayList<Node> neighbors;
+    private ArrayList<Node> neighbors = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -36,6 +36,10 @@ public class Node {
 
     public void setPower(int power) {
         this.power = power;
+    }
+
+    public void addNeighbor(Node node) {
+        neighbors.add(node);
     }
 
     public ArrayList<Node> getNeighbors() {

@@ -9,11 +9,14 @@ import com.google.gson.JsonObject;
 public class Message {
     public final String type;
     public final JsonObject payload;
-    public final String token;
+    public String token;
 
-    public Message(String type, JsonObject args, String token) {
+    public Message(String type, JsonObject args) {
         this.type = type;
         this.payload = args;
+    }
+
+    public void setToken(String token) {
         this.token = token;
     }
 }

@@ -64,7 +64,7 @@ public class Game {
 
     public void doAction(Action action) {
         JsonObject payload = (JsonObject) Json.GSON.toJsonTree(action);
-        Message msg = new Message("5", payload, "tokken");
+        Message msg = new Message("5", payload);
         sender.accept(msg);
     }
 }
