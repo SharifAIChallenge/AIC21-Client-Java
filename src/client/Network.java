@@ -89,7 +89,7 @@ public class Network {
             client = new JsonSocket(host, port);
             JsonObject tokenObject = new JsonObject();
             tokenObject.add("token", Json.GSON.toJsonTree(token));
-            client.send(new Message("token", tokenObject, 0));
+            client.send(new Message("token", tokenObject));
             init = client.get(Message.class);
             if (!init.type.equals("init")) {
                 client.close();
