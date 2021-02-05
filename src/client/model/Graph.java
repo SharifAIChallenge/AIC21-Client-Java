@@ -17,7 +17,6 @@ public class Graph {
     public void addNode(List<Node> nodes) {
         this.nodes.addAll(nodes);
     }
-
     public List<Node> getAllNodes() {
         return nodes;
     }

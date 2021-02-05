@@ -2,6 +2,7 @@ package client;
 
 import client.model.Game;
 
+
 /**
  * client.AI class.
  * You should fill body of the method "doTurn".
@@ -13,6 +14,7 @@ import client.model.Game;
  * See client.model.World interface for more details.
  */
 public class AI {
+
 
     public void doTurn(Game game) {
         // fill this method, we've presented a stupid client.AI for example!
