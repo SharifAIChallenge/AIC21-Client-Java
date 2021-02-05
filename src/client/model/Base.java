@@ -1,24 +1,13 @@
 package client.model;
 
+// TODO: convert to cell
 public class Base {
-    private int workersCount;
-    private int soldiersCount;
     private int xCoordinate;
     private int yCoordinate;
 
-    public Base(int workersCount, int soldiersCount, int xCoordinate, int yCoordinate) {
-        this.workersCount = workersCount;
-        this.soldiersCount = soldiersCount;
+    public Base(int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
-    }
-
-    public int getWorkersCount() {
-        return workersCount;
-    }
-
-    public int getSoldiersCount() {
-        return soldiersCount;
     }
 
     public int getXCoordinate() {

@@ -11,6 +11,7 @@ public class Map {
         this.height = height;
     }
 
+    // x, y are relative to current cell
     public Cell getCell(int x, int y, int distance) {
         if (Math.abs(x) + Math.abs(y) > distance)
             return null;

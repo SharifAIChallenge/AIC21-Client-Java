@@ -24,7 +24,6 @@
 hs_err_pid*
 
 # Markup files
-*.xml
 *.iml
 
 # Jetbrains

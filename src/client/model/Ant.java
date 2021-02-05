@@ -10,6 +10,7 @@ public class Ant {
     private Base baseInfo;
     private int health;
     private Map visibleMap;
+    // manhatan distance of ant's view
     private int viewDistance;
 
     public void doAction() {
@@ -66,3 +67,6 @@ public class Ant {
         return viewDistance;
     }
 }
+
+// TODO: CurrentState --> before AI call
+// GameConfig           --> at startup
