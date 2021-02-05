@@ -1,6 +1,7 @@
 package client;
 
-import client.model.World;
+import client.model.Game;
+
 
 /**
  * client.AI class.
@@ -14,7 +15,8 @@ import client.model.World;
  */
 public class AI {
 
-    public void doTurn(World world) {
+
+    public void doTurn(Game game) {
         // fill this method, we've presented a stupid client.AI for example!
     }
 }

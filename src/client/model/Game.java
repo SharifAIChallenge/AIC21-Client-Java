@@ -1,11 +1,13 @@
 package client.model;
 
+import client.dto.ClientInitMessage;
 import client.model.enums.Owner;
 import com.google.gson.JsonObject;
 import common.network.Json;
 import common.network.data.Message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -64,7 +66,26 @@ public class Game {
 
     public void doAction(Action action) {
         JsonObject payload = (JsonObject) Json.GSON.toJsonTree(action);
-        Message msg = new Message("5", payload, "tokken");
+        Message msg = new Message("5", payload);
         sender.accept(msg);
+    }
+
+    public void initialize(ClientInitMessage msg) {
+        myPoint = msg.getYourPoint();
+        enemyPoint = msg.getEnemyPoint();
+        turn = msg.getTurn();
+        buildGraph(msg.getNodes(), msg.getEdges());
+    }
+
+    private void buildGraph(List<Node> nodes, HashMap<String, String> edges) {
+        Graph graph = new Graph();
+        graph.addNode(nodes);
+        this.graph = graph;
+        for (String nodeId : edges.keySet()) {
+            Node sourceNode = getNodeWithId(nodeId);
+            Node neighborNode = getNodeWithId(edges.get(nodeId));
+
+            sourceNode.addNeighbor(neighborNode);
+        }
     }
 }
