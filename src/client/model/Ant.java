@@ -1,5 +1,6 @@
 package client.model;
 
+import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
 import client.model.enums.AntType;
 
@@ -7,18 +8,33 @@ public class Ant {
     private AntType type;
     private AntTeam team;
     private Resource carryingResource;
-    private Base baseInfo;
+    private int currentX;
+    private int currentY;
     private int health;
     private Map visibleMap;
-    // manhatan distance of ant's view
+    // manhattan distance of ant's view
     private int viewDistance;
 
-    public void doAction() {
-        //TODO
+    public Ant(AntType type, AntTeam team) {
+        this.type = type;
+        this.team = team;
+        this.carryingResource = null;
+        this.visibleMap = null;
+        this.currentX = -1;
+        this.currentY = -1;
+        this.health = -1;
+        this.viewDistance = -1;
     }
 
-    public void chat() {
-        //TODO
+    public Ant(AntType type, AntTeam team, int viewDistance, Map map, CurrentStateMessage state) {
+        this.type = type;
+        this.team = team;
+        this.carryingResource = state.getCurrentResource();
+        this.currentX = state.getCurrentX();
+        this.currentY = state.getCurrentY();
+        this.health = state.getHealth();
+        this.visibleMap = map;
+        this.viewDistance = viewDistance;
     }
 
     private Cell getMapCell(int xStep, int yStep) {
@@ -30,13 +46,11 @@ public class Ant {
     }
 
     public int getXCoordinate() {
-        Cell currentCell = getNeighborCell(0, 0);
-        return currentCell.getXCoordinate();
+        return currentX;
     }
 
     public int getYCoordinate() {
-        Cell currentCell = getNeighborCell(0, 0);
-        return currentCell.getYCoordinate();
+        return currentY;
     }
 
     public Cell getCurrentCell() {
@@ -55,10 +69,6 @@ public class Ant {
         return carryingResource;
     }
 
-    public Base getBaseInfo() {
-        return baseInfo;
-    }
-
     public int getHealth() {
         return health;
     }
@@ -67,6 +77,3 @@ public class Ant {
         return viewDistance;
     }
 }
-
-// TODO: CurrentState --> before AI call
-// GameConfig           --> at startup

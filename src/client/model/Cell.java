@@ -21,7 +21,7 @@ public class Cell {
         this.presentAnts = new HashSet<>();
     }
 
-    public void addAntToThisCell(Ant ant) {
+    public void addAntToCell(Ant ant) {
         presentAnts.add(ant);
     }
 
