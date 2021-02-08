@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Consumer;
 
 /**
- * {@link Network} is responsible for connecting to server, and
+ * Network is responsible for connecting to server, and
  * sending/receiving messages to/from server.
  * Please do not change this class, it is a piece of the internal implementation
  * and you do not need to know anything about this class.
