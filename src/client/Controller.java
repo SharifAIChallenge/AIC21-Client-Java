@@ -2,6 +2,8 @@ package client;
 
 import client.model.Game;
 import client.model.dto.config.GameConfigMessage;
+import client.model.dto.state.CurrentStateMessage;
+import com.google.gson.JsonObject;
 import common.network.Json;
 import common.network.data.Message;
 import common.util.Log;
@@ -100,6 +102,8 @@ public class Controller {
             case "turn":
                 handleTurnMessage(msg);
                 break;
+            case "around_cells":
+                handleMapMessage(msg);
             case "shutdown":
                 handleShutdownMessage(msg);
                 break;
@@ -108,6 +112,15 @@ public class Controller {
                 break;
         }
         Log.v(TAG, msg.type + " handle finished.");
+    }
+
+    private void handleMapMessage(Message msg) {
+        Game newGame = new Game(game);
+        CurrentStateMessage currentStateMessage = Json.GSON.fromJson(msg.getInfo(), CurrentStateMessage.class);
+        newGame.setCurrentState(currentStateMessage);
+
+        Message endMsg = new Message("endTurn", new JsonObject(), 0/*TODO */);
+        turn(newGame, endMsg);
     }
 
     /**
@@ -123,6 +136,8 @@ public class Controller {
 
     private void handleTurnMessage(Message msg) {
         //TODO
+        Message endMsg = new Message("0", new JsonObject(), 0/*TODO */);
+        sendEndMsg(endMsg);
     }
 
     /**
