@@ -1,5 +1,6 @@
 package client;
 
+import client.model.Answer;
 import client.model.Game;
 import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
@@ -118,9 +119,9 @@ public class Controller {
         Game newGame = new Game(game);
         CurrentStateMessage currentStateMessage = Json.GSON.fromJson(msg.getInfo(), CurrentStateMessage.class);
         newGame.setCurrentState(currentStateMessage);
-
-        Message endMsg = new Message("endTurn", new JsonObject(), 0/*TODO */);
-        turn(newGame, endMsg);
+        Message endMsg1 = new Message("1", new JsonObject());
+        Message endMsg2 = new Message("2", new JsonObject());
+        turn(newGame, endMsg1, endMsg2);
     }
 
     /**
@@ -135,8 +136,7 @@ public class Controller {
     }
 
     private void handleTurnMessage(Message msg) {
-        //TODO
-        Message endMsg = new Message("0", new JsonObject(), 0/*TODO */);
+        Message endMsg = new Message("0", new JsonObject());
         sendEndMsg(endMsg);
     }
 
@@ -147,20 +147,44 @@ public class Controller {
      */
     private void handleShutdownMessage(Message msg) {
         Game newGame = new Game(game);
-        //TODO
+        //...
         network.terminate();
         System.exit(0);
     }
 
-    private void turn(Game game, Message msg) {
+    private void turn(Game game, Message msg1, Message msg2) {
         new Thread(() ->
         {
             try {
-                ai.turn(/*TODO*/);
+                Answer answer = ai.turn(game);
+                int direction;
+                switch (answer.getDirection()) {
+                    case CENTER:
+                        direction = 0;
+                        break;
+                    case UP:
+                        direction = 2;
+                        break;
+                    case DOWN:
+                        direction = 4;
+                        break;
+                    case RIGHT:
+                        direction = 1;
+                        break;
+                    case LEFT:
+                        direction = 3;
+                        break;
+                    default:
+                        direction = 0;
+                }
+                msg1.info.addProperty("direction", direction);
+                msg2.info.addProperty("message", answer.getMessage());
+                msg2.info.addProperty("value", answer.getMessageValue());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            sendEndMsg(msg);
+            sendEndMsg(msg1);
+            sendEndMsg(msg2);
         }).start();
     }
 

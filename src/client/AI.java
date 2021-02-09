@@ -1,6 +1,9 @@
 package client;
 
 
+import client.model.Answer;
+import client.model.Game;
+
 /**
  * You must put your code in this class.
  * turn, to do orders while game is running;
@@ -9,9 +12,10 @@ package client;
 
 public class AI {
 
-    public void turn(/*TODO*/) {
+    public Answer turn(Game game) {
         System.out.println("turn started: ");
         //some codes here
+        return null;
     }
 
     public void end(/*TODO*/) {
