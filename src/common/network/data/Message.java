@@ -31,6 +31,11 @@ public class Message
         return this.info;
     }
 
+    public Message(String type, JsonObject info) {
+        this.type = type;
+        this.info = info;
+    }
+
     public Message(String type, JsonObject args, int turn)
     {
         this.type = type;
