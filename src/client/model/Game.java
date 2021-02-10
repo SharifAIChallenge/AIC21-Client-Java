@@ -4,14 +4,14 @@ import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
 import client.model.enums.AntType;
-import common.network.data.Message;
-
-import java.util.function.Consumer;
 
 public class Game {
+    //current state info
     private Ant ant;
-    private AntType antType;
     private ChatBox chatBox;
+
+    //general info of agent
+    private AntType antType;
     private int mapWidth;
     private int mapHeight;
     private int baseX;
@@ -23,23 +23,21 @@ public class Game {
     private int generateSarbaaz;
     private int rateDeathResource;
 
-    //sender
-    private Consumer<Message> sender;
-
-    public Game(Consumer<Message> sender) {
-        this.sender = sender;
+    public Game() {
     }
 
     public Game(Game game) {
-        //copy game info
-    }
-
-    public void doAction() {
-        //TODO
-    }
-
-    public void chat() {
-        //TODO
+        this.antType = game.getAntType();
+        this.mapWidth = game.getMapWidth();
+        this.mapHeight = game.getMapHeight();
+        this.baseX = game.getBaseX();
+        this.baseY = game.getBaseY();
+        this.healthKargar = game.getHealthKargar();
+        this.healthSarbaaz = game.getHealthSarbaaz();
+        this.attackDistance = game.getAttackDistance();
+        this.generateKargar = game.getGenerateKargar();
+        this.generateSarbaaz = game.getGenerateSarbaaz();
+        this.rateDeathResource = game.getRateDeathResource();
     }
 
     //general game config will add to game with this method
@@ -69,5 +67,57 @@ public class Game {
         Map map = new Map(cells, mapWidth, mapHeight, attackDistance, stateMessage.getCurrentX(), stateMessage.getCurrentY());
 
         return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage);
+    }
+
+    public Ant getAnt() {
+        return ant;
+    }
+
+    public AntType getAntType() {
+        return antType;
+    }
+
+    public ChatBox getChatBox() {
+        return chatBox;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    public int getBaseX() {
+        return baseX;
+    }
+
+    public int getBaseY() {
+        return baseY;
+    }
+
+    public int getHealthKargar() {
+        return healthKargar;
+    }
+
+    public int getHealthSarbaaz() {
+        return healthSarbaaz;
+    }
+
+    public int getAttackDistance() {
+        return attackDistance;
+    }
+
+    public int getGenerateKargar() {
+        return generateKargar;
+    }
+
+    public int getGenerateSarbaaz() {
+        return generateSarbaaz;
+    }
+
+    public int getRateDeathResource() {
+        return rateDeathResource;
     }
 }

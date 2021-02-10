@@ -1,9 +1,9 @@
 package client.model.enums;
 
 public enum Direction {
-    UP,
-    DOWN,
-    LEFT,
+    CENTER,
     RIGHT,
-    CENTER
+    UP,
+    LEFT,
+    DOWN
 }

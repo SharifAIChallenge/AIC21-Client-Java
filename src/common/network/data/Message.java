@@ -1,45 +1,43 @@
 package common.network.data;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import common.network.Json;
-
-
 /**
  * Message class.
+ * This is the template of message from client to server
  */
-public class Message
-{
-    public final String type;
-    public final JsonObject info;
-    public int turn;
+public class Message {
+    private int type;
+    private Integer direction;
+    private String message;
+    private Integer value;
 
-    public int getTurn() {
-        return turn;
-    }
-
-    public void setTurn(int turn) {
-        this.turn = turn;
-    }
-
-
-    public String getType(){
-        return this.type;
-    }
-
-    public JsonObject getInfo(){
-        return this.info;
-    }
-
-    public Message(String type, JsonObject info) {
+    public Message(int type) {
         this.type = type;
-        this.info = info;
     }
 
-    public Message(String type, JsonObject args, int turn)
-    {
+    public Message(int type, Integer direction) {
         this.type = type;
-        this.info = args;
-        this.turn = turn;
+        this.direction = direction;
+    }
+
+    public Message(int type, String message, int value) {
+        this.type = type;
+        this.message = message;
+        this.value = value;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public Integer getDirection() {
+        return direction;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public int getValue() {
+        return value;
     }
 }
