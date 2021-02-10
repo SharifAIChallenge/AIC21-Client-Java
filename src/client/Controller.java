@@ -4,11 +4,10 @@ import client.model.Answer;
 import client.model.Game;
 import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
-import com.google.gson.JsonObject;
-import common.network.Json;
 import common.network.data.Message;
 import common.util.Log;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -44,6 +43,7 @@ public class Controller {
     // Terminator. Controller waits for this object to be notified. Then it will be terminated.
     private final Object terminator;
 
+    // Network send function
     private Consumer<Message> sender;
 
     /**
@@ -64,13 +64,13 @@ public class Controller {
 
 
     /**
-     * Starts a client by connecting to the server and sending a token.
+     * Starts a client by connecting to the server and sets game configuration .
      */
     public void start() {
         try {
-            network = new client.Network(this::handleMessage);
+            network = new client.Network(this::handleConfigurationMessage);
             sender = network::send;
-            game = new Game(sender);
+            game = new Game();
             ai = new AI();
 
             network.setConnectionData(host, port, token);
@@ -78,6 +78,7 @@ public class Controller {
                 network.connect();
                 Thread.sleep(retryDelay);
             }
+            handleGame();
             synchronized (terminator) {
                 terminator.wait();
             }
@@ -89,103 +90,56 @@ public class Controller {
     }
 
     /**
-     * Handles incoming message. This method will be called from
-     * client.Network  when a new message is received.
+     * Handles game configuration. This method will be called from
+     * client.Network when network make connection to server
      *
-     * @param msg incoming message
+     * @param configuration an object which have configuration data
      */
-    private void handleMessage(Message msg) {
-        Log.v(TAG, msg.type + " received.");
-        switch (msg.type) {     //must be coordinated between client and server
-            case "init":
-                handleInitMessage(msg);
-                break;
-            case "turn":
-                handleTurnMessage(msg);
-                break;
-            case "around_cells":
-                handleMapMessage(msg);
-            case "shutdown":
-                handleShutdownMessage(msg);
-                break;
-            default:
-                Log.w(TAG, "Undefined message received: " + msg.type);
-                break;
-        }
-        Log.v(TAG, msg.type + " handle finished.");
+    private void handleConfigurationMessage(GameConfigMessage configuration) {
+        game.initGameConfig(configuration);
     }
 
-    private void handleMapMessage(Message msg) {
-        Game newGame = new Game(game);
-        CurrentStateMessage currentStateMessage = Json.GSON.fromJson(msg.getInfo(), CurrentStateMessage.class);
-        newGame.setCurrentState(currentStateMessage);
-        Message endMsg1 = new Message("1", new JsonObject());
-        Message endMsg2 = new Message("2", new JsonObject());
-        turn(newGame, endMsg1, endMsg2);
-    }
 
     /**
-     * Handles init message.
-     *
-     * @param msg init message
+     * This method handle game, it will send an action
+     * to server every 1 second
      */
-    private void handleInitMessage(Message msg) {
-        GameConfigMessage gameConfigMessage = Json.GSON.fromJson(msg.getInfo(), GameConfigMessage.class);
-        game.initGameConfig(gameConfigMessage);
-        //maybe we need to send a message to the server
-    }
-
-    private void handleTurnMessage(Message msg) {
-        Message endMsg = new Message("0", new JsonObject());
-        sendEndMsg(endMsg);
-    }
-
-    /**
-     * Handles shutdown message.
-     *
-     * @param msg shutdown message
-     */
-    private void handleShutdownMessage(Message msg) {
-        Game newGame = new Game(game);
-        //...
-        network.terminate();
-        System.exit(0);
-    }
-
-    private void turn(Game game, Message msg1, Message msg2) {
-        new Thread(() ->
-        {
+    private void handleGame() {
+        new Thread(() -> {
+            handleTurn();
             try {
-                Answer answer = ai.turn(game);
-                int direction;
-                switch (answer.getDirection()) {
-                    case CENTER:
-                        direction = 0;
-                        break;
-                    case UP:
-                        direction = 2;
-                        break;
-                    case DOWN:
-                        direction = 4;
-                        break;
-                    case RIGHT:
-                        direction = 1;
-                        break;
-                    case LEFT:
-                        direction = 3;
-                        break;
-                    default:
-                        direction = 0;
-                }
-                msg1.info.addProperty("direction", direction);
-                msg2.info.addProperty("message", answer.getMessage());
-                msg2.info.addProperty("value", answer.getMessageValue());
-            } catch (Exception e) {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            sendEndMsg(msg1);
-            sendEndMsg(msg2);
         }).start();
+    }
+
+    private void handleTurn() {
+        Game newGame = new Game(game);// is this needed?!
+        Message getState = new Message(0);
+        sender.accept(getState);
+        CurrentStateMessage stateMessage = null;
+        try {
+            stateMessage = network.receive(CurrentStateMessage.class);
+        } catch (IOException e) {
+            Log.e(TAG, "Can not get state message from server.");
+            e.printStackTrace();
+            return;
+        }
+        newGame.setCurrentState(stateMessage);
+        Answer answer = ai.turn(newGame);
+        sendAIAnswer(answer);
+    }
+
+    private void sendAIAnswer(Answer answer) {
+        Message movementResponse = new Message(1, answer.getDirection().ordinal());
+        sender.accept(movementResponse);
+
+        if (answer.getMessage() != null) {
+            Message chatResponse = new Message(2, answer.getMessage(), answer.getMessageValue());
+            sender.accept(chatResponse);
+        }
     }
 
     private void end(Game game, Map<Integer, Integer> scores) {
