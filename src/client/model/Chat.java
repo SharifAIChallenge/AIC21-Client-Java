@@ -1,16 +1,16 @@
 package client.model;
 
 public class Chat {
-    private String message;
+    private String text;
     private int turn;
 
-    public Chat(String message, int turn) {
-        this.message = message;
+    public Chat(String text, int turn) {
+        this.text = text;
         this.turn = turn;
     }
 
-    public String getMessage() {
-        return message;
+    public String getText() {
+        return text;
     }
 
     public int getTurn() {

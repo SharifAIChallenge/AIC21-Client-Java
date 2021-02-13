@@ -4,18 +4,18 @@ import client.model.enums.ResourceType;
 
 public class Resource {
     private ResourceType type;
-    private int amount;
+    private int value;
 
-    public Resource(ResourceType type, int amount) {
+    public Resource(ResourceType type, int value) {
         this.type = type;
-        this.amount = amount;
+        this.value = value;
     }
 
     public ResourceType getType() {
         return type;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getValue() {
+        return value;
     }
 }

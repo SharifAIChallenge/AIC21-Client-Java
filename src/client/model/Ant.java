@@ -7,7 +7,7 @@ import client.model.enums.AntType;
 public class Ant {
     private AntType type;
     private AntTeam team;
-    private Resource carryingResource;
+    private Resource currentResource;
     private int currentX;
     private int currentY;
     private int health;
@@ -18,7 +18,7 @@ public class Ant {
     public Ant(AntType type, AntTeam team) {
         this.type = type;
         this.team = team;
-        this.carryingResource = null;
+        this.currentResource = null;
         this.visibleMap = null;
         this.currentX = -1;
         this.currentY = -1;
@@ -29,7 +29,7 @@ public class Ant {
     public Ant(AntType type, AntTeam team, int viewDistance, Map map, CurrentStateMessage state) {
         this.type = type;
         this.team = team;
-        this.carryingResource = state.getCurrentResource();
+        this.currentResource = state.getCurrentResource();
         this.currentX = state.getCurrentX();
         this.currentY = state.getCurrentY();
         this.health = state.getHealth();
@@ -53,7 +53,7 @@ public class Ant {
         return currentY;
     }
 
-    public Cell getCurrentCell() {
+    public Cell getLocationCell() {
         return getNeighborCell(0, 0);
     }
 
@@ -65,8 +65,8 @@ public class Ant {
         return team;
     }
 
-    public Resource getCarryingResource() {
-        return carryingResource;
+    public Resource getCurrentResource() {
+        return currentResource;
     }
 
     public int getHealth() {

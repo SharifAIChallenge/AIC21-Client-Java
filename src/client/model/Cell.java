@@ -7,22 +7,22 @@ import java.util.Set;
 
 public class Cell {
     private CellType type;
-    private int xCoordinate;
-    private int yCoordinate;
+    private int x;
+    private int y;
     private Resource resource;
     //TODO -> one agent must not have this authority to use other agents, must just know [team] and [type]
-    private Set<Ant> presentAnts;
+    private Set<Ant> ants;
 
-    public Cell(CellType type, int xCoordinate, int yCoordinate, Resource resource) {
+    public Cell(CellType type, int x, int y, Resource resource) {
         this.type = type;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
+        this.x = x;
+        this.y = y;
         this.resource = resource;
-        this.presentAnts = new HashSet<>();
+        this.ants = new HashSet<>();
     }
 
     public void addAntToCell(Ant ant) {
-        presentAnts.add(ant);
+        ants.add(ant);
     }
 
     public CellType getType() {
@@ -30,18 +30,18 @@ public class Cell {
     }
 
     public int getXCoordinate() {
-        return xCoordinate;
+        return x;
     }
 
     public int getYCoordinate() {
-        return yCoordinate;
+        return y;
     }
 
     public Resource getResource() {
         return resource;
     }
 
-    public Set<Ant> getPresentAnts() {
-        return presentAnts;
+    public Set<Ant> getAnts() {
+        return ants;
     }
 }
