@@ -142,11 +142,7 @@ public class Controller {
         }
     }
 
-    private void end(Game game, Map<Integer, Integer> scores) {
-        ai.end(/*TODO*/);
-    }
-
-    private void sendEndMsg(Message message) {
+    private void sendMsg(Message message) {
         sender.accept(message);
     }
 
