@@ -17,9 +17,4 @@ public class AI {
         //some codes here
         return null;
     }
-
-    public void end(/*TODO*/) {
-        System.out.println("end started");
-        //some codes here
-    }
 }
