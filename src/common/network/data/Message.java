@@ -2,30 +2,40 @@ package common.network.data;
 
 import com.google.gson.JsonObject;
 
+
+/**
+ * Message class.
+ */
 public class Message {
+    public final String type;
+    public final JsonObject info;
+    public int turn;
 
-    private String type;
-    // payload = info
-    private JsonObject info;
-
-    public Message(String type, JsonObject info) {
-        this.type = type;
-        this.info = info;
+    public int getTurn() {
+        return turn;
     }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
 
     public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+        return this.type;
     }
 
     public JsonObject getInfo() {
-        return info;
+        return this.info;
     }
 
-    public void setInfo(JsonObject info) {
-        this.info = info;
+    public Message(String type, JsonObject args, int turn) {
+        this.type = type;
+        this.info = args;
+        this.turn = turn;
+    }
+
+    public Message(String type, JsonObject args) {
+        this.type = type;
+        this.info = args;
     }
 }
