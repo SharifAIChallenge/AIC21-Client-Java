@@ -1,6 +1,7 @@
 package client;
 
-import client.model.dto.config.GameConfigMessage;
+import com.google.gson.JsonObject;
+import common.network.Json;
 import common.network.JsonSocket;
 import common.network.data.Message;
 import common.util.Log;
@@ -12,7 +13,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Consumer;
 
 /**
- * Network is responsible for connecting to server, and
+ * {@link Network} is responsible for connecting to server, and
  * sending/receiving messages to/from server.
  * Please do not change this class, it is a piece of the internal implementation
  * and you do not need to know anything about this class.
@@ -26,7 +27,7 @@ public class Network {
     public static final int MAX_NUM_EXCEPTIONS = 20;
 
     // Handles incoming messages
-    private Consumer<GameConfigMessage> messageHandler;
+    private Consumer<Message> messageHandler;
 
     // Send queue
     private LinkedBlockingDeque<Message> messagesToSend;
@@ -57,7 +58,7 @@ public class Network {
      *
      * @param messageHandler handles incoming messages
      */
-    public Network(Consumer<GameConfigMessage> messageHandler) {
+    public Network(Consumer<Message> messageHandler) {
         this.messageHandler = messageHandler;
         messagesToSend = new LinkedBlockingDeque<>();
         executor = Executors.newCachedThreadPool();
@@ -83,11 +84,14 @@ public class Network {
     public void connect() {
         isConnected = false;
         JsonSocket client;
-        GameConfigMessage gameConfiguration;
+        Message init;
         try {
             client = new JsonSocket(host, port);
-            gameConfiguration = client.get(GameConfigMessage.class);
-            if (gameConfiguration == null) {
+            JsonObject tokenObject = new JsonObject();
+            tokenObject.add("token", Json.GSON.toJsonTree(token));
+            client.send(new Message("token", tokenObject, 0));
+            init = client.get(Message.class);
+            if (!init.type.equals("3")) {
                 client.close();
                 throw new Exception("First message of the server was not init message.");
             }
@@ -101,14 +105,36 @@ public class Network {
         }
         isConnected = true;
         this.socket = client;
-        messageHandler.accept(gameConfiguration);
+        messageHandler.accept(init);
+        startReceiving();
     }
 
     /**
-     * Receive server messages
+     * Starts listening for the server messages.
      */
-    public <T> T receive(Class<T> classOfInput) throws IOException {
-        return socket.get(classOfInput);
+    private void startReceiving() {
+        executor.submit(() -> {
+            while (!terminateFlag)
+                doReceive();
+            executor.shutdownNow();
+            executor = null;
+        });
+    }
+
+    /**
+     * Listens for a single message of the server.
+     */
+    private void doReceive() {
+        try {
+            messageHandler.accept(socket.get(Message.class));
+        } catch (IOException e) {
+            Log.e(TAG, "Can not receive server's message.", e);
+            e.printStackTrace();
+            handleIOE(e);
+        } catch (Exception e) {
+            Log.e(TAG, "Can not recieve server's message.", e);
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -163,4 +189,5 @@ public class Network {
         if (numOfExceptions > MAX_NUM_EXCEPTIONS)
             terminate();
     }
+
 }
