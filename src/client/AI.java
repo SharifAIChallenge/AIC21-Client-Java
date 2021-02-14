@@ -1,7 +1,6 @@
 package client;
 
 
-import client.model.Answer;
 import client.model.Game;
 
 /**
@@ -12,9 +11,8 @@ import client.model.Game;
 
 public class AI {
 
-    public Answer turn(Game game) {
+    public void turn(Game game) {
         System.out.println("turn started: ");
         //some codes here
-        return null;
     }
 }

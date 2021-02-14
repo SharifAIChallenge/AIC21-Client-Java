@@ -4,6 +4,11 @@ import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
 import client.model.enums.AntType;
+import client.model.enums.Direction;
+import com.google.gson.JsonObject;
+import common.network.data.Message;
+
+import java.util.function.Consumer;
 
 public class Game {
     //current state info
@@ -22,8 +27,48 @@ public class Game {
     private int generateKargar;
     private int generateSarbaaz;
     private int rateDeathResource;
+    private Consumer<Message> sender;
 
-    public Game() {
+    private String message;
+    private int messageValue;
+
+    public void sendDirection(Direction direction) {
+        int directionNumber;
+        switch (direction) {
+            case UP:
+                directionNumber = 2;
+                break;
+            case DOWN:
+                directionNumber = 4;
+                break;
+            case LEFT:
+                directionNumber = 3;
+                break;
+            case RIGHT:
+                directionNumber = 1;
+                break;
+            case CENTER:
+                directionNumber = 0;
+                break;
+            default:
+                directionNumber = -1;
+        }
+        JsonObject answer = new JsonObject();
+        answer.addProperty("direction", directionNumber);
+        Message messageToSend = new Message("1", answer);
+        sender.accept(messageToSend);
+    }
+
+    public void sendMessage(String message, int value) {
+        JsonObject answer = new JsonObject();
+        answer.addProperty("messsage", message);
+        answer.addProperty("value", messageValue);
+        Message messageToSend = new Message("2", answer);
+        sender.accept(messageToSend);
+    }
+
+    public Game(Consumer<Message> sender) {
+        this.sender = sender;
     }
 
     public Game(Game game) {
@@ -38,6 +83,11 @@ public class Game {
         this.generateKargar = game.getGenerateKargar();
         this.generateSarbaaz = game.getGenerateSarbaaz();
         this.rateDeathResource = game.getRateDeathResource();
+        this.sender = game.getSender();
+    }
+
+    private Consumer<Message> getSender() {
+        return sender;
     }
 
     //general game config will add to game with this method
