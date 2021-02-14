@@ -91,7 +91,7 @@ public class Network {
             tokenObject.add("token", Json.GSON.toJsonTree(token));
             client.send(new Message("token", tokenObject, 0));
             init = client.get(Message.class);
-            if (!init.type.equals("init")) {
+            if (!init.type.equals("3")) {
                 client.close();
                 throw new Exception("First message of the server was not init message.");
             }

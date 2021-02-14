@@ -1,0 +1,173 @@
+package client.model;
+
+import client.model.dto.config.GameConfigMessage;
+import client.model.dto.state.CurrentStateMessage;
+import client.model.enums.AntTeam;
+import client.model.enums.AntType;
+import client.model.enums.Direction;
+import com.google.gson.JsonObject;
+import common.network.data.Message;
+
+import java.util.function.Consumer;
+
+public class Game {
+    //current state info
+    private Ant ant;
+    private ChatBox chatBox;
+
+    //general info of agent
+    private AntType antType;
+    private int mapWidth;
+    private int mapHeight;
+    private int baseX;
+    private int baseY;
+    private int healthKargar;
+    private int healthSarbaaz;
+    private int attackDistance;
+    private int generateKargar;
+    private int generateSarbaaz;
+    private int rateDeathResource;
+    private Consumer<Message> sender;
+
+    private String message;
+    private int messageValue;
+
+    public void sendDirection(Direction direction) {
+        int directionNumber;
+        switch (direction) {
+            case UP:
+                directionNumber = 2;
+                break;
+            case DOWN:
+                directionNumber = 4;
+                break;
+            case LEFT:
+                directionNumber = 3;
+                break;
+            case RIGHT:
+                directionNumber = 1;
+                break;
+            case CENTER:
+                directionNumber = 0;
+                break;
+            default:
+                directionNumber = -1;
+        }
+        JsonObject answer = new JsonObject();
+        answer.addProperty("direction", directionNumber);
+        Message messageToSend = new Message("1", answer);
+        sender.accept(messageToSend);
+    }
+
+    public void sendMessage(String message, int value) {
+        JsonObject answer = new JsonObject();
+        answer.addProperty("messsage", message);
+        answer.addProperty("value", messageValue);
+        Message messageToSend = new Message("2", answer);
+        sender.accept(messageToSend);
+    }
+
+    public Game(Consumer<Message> sender) {
+        this.sender = sender;
+    }
+
+    public Game(Game game) {
+        this.antType = game.getAntType();
+        this.mapWidth = game.getMapWidth();
+        this.mapHeight = game.getMapHeight();
+        this.baseX = game.getBaseX();
+        this.baseY = game.getBaseY();
+        this.healthKargar = game.getHealthKargar();
+        this.healthSarbaaz = game.getHealthSarbaaz();
+        this.attackDistance = game.getAttackDistance();
+        this.generateKargar = game.getGenerateKargar();
+        this.generateSarbaaz = game.getGenerateSarbaaz();
+        this.rateDeathResource = game.getRateDeathResource();
+        this.sender = game.getSender();
+    }
+
+    private Consumer<Message> getSender() {
+        return sender;
+    }
+
+    //general game config will add to game with this method
+    public void initGameConfig(GameConfigMessage configMessage) {
+        antType = configMessage.getAntType();
+        mapWidth = configMessage.getMapWidth();
+        mapHeight = configMessage.getMapHeight();
+        baseX = configMessage.getBaseX();
+        baseY = configMessage.getBaseY();
+        healthKargar = configMessage.getHealthKargar();
+        healthSarbaaz = configMessage.getHealthSarbaaz();
+        attackDistance = configMessage.getAttackDistance();
+        generateKargar = configMessage.getGenerateKargar();
+        generateSarbaaz = configMessage.getGenerateSarbaaz();
+        rateDeathResource = configMessage.getRateDeathResource();
+    }
+
+    //set current state of game, includes [ant] & [chatBox], other fields are general info
+    public void setCurrentState(CurrentStateMessage stateMessage) {
+        chatBox = new ChatBox(stateMessage.getChats());
+        ant = initialAntState(stateMessage);
+    }
+
+    //create Ant template from incoming message info
+    private Ant initialAntState(CurrentStateMessage stateMessage) {
+        Cell[][] cells = stateMessage.getVisibleCells(mapHeight, mapWidth);
+        Map map = new Map(cells, mapWidth, mapHeight, attackDistance, stateMessage.getCurrentX(), stateMessage.getCurrentY());
+
+        return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage);
+    }
+
+    public Ant getAnt() {
+        return ant;
+    }
+
+    public AntType getAntType() {
+        return antType;
+    }
+
+    public ChatBox getChatBox() {
+        return chatBox;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+    public int getBaseX() {
+        return baseX;
+    }
+
+    public int getBaseY() {
+        return baseY;
+    }
+
+    public int getHealthKargar() {
+        return healthKargar;
+    }
+
+    public int getHealthSarbaaz() {
+        return healthSarbaaz;
+    }
+
+    public int getAttackDistance() {
+        return attackDistance;
+    }
+
+    public int getGenerateKargar() {
+        return generateKargar;
+    }
+
+    public int getGenerateSarbaaz() {
+        return generateSarbaaz;
+    }
+
+    public int getRateDeathResource() {
+        return rateDeathResource;
+    }
+}
