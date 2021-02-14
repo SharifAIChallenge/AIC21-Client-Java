@@ -1,43 +1,31 @@
 package common.network.data;
 
-/**
- * Message class.
- * This is the template of message from client to server
- */
+import com.google.gson.JsonObject;
+
 public class Message {
-    private int type;
-    private Integer direction;
-    private String message;
-    private Integer value;
 
-    public Message(int type) {
+    private String type;
+    // payload = info
+    private JsonObject info;
+
+    public Message(String type, JsonObject info) {
         this.type = type;
+        this.info = info;
     }
 
-    public Message(int type, Integer direction) {
-        this.type = type;
-        this.direction = direction;
-    }
-
-    public Message(int type, String message, int value) {
-        this.type = type;
-        this.message = message;
-        this.value = value;
-    }
-
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public Integer getDirection() {
-        return direction;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getMessage() {
-        return message;
+    public JsonObject getInfo() {
+        return info;
     }
 
-    public int getValue() {
-        return value;
+    public void setInfo(JsonObject info) {
+        this.info = info;
     }
 }
