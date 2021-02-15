@@ -12,7 +12,7 @@ public interface World {
      * use this method for choosing your moving direction
      *
      * @param direction is an enum object (UP, DOWN, LEFT, RIGHT, CENTER)
-     * you can access different direction using  {@link client.model.enums.Direction}
+     *                  you can access different direction using  {@link client.model.enums.Direction}
      */
     public void chooseDirection(Direction direction);
 
@@ -33,7 +33,7 @@ public interface World {
 
     /**
      * @return your ant type
-     * AntType is an enum {@link client.model.enums.AntType}
+     * AntType is an enum {@link AntType}
      */
     public AntType getAntType();
 
@@ -44,23 +44,53 @@ public interface World {
      */
     public ChatBox getChatBox();
 
+    /**
+     * @return map's width
+     */
     public int getMapWidth();
 
+    /**
+     * @return map's height
+     */
     public int getMapHeight();
 
+    /**
+     * @return X coordinate of the team's base
+     */
     public int getBaseX();
 
+    /**
+     * @return Y coordinate of the team's base
+     */
     public int getBaseY();
 
+    /**
+     * @return early health of a ant which is {@link AntType#KARGAR}
+     */
     public int getHealthKargar();
 
+    /**
+     * @return early health of a ant which is {@link AntType#SARBAAZ}
+     */
     public int getHealthSarbaaz();
 
+    /**
+     * @return maximum Manhattan distance of a target
+     */
     public int getAttackDistance();
 
+    /**
+     * @return Bread needed to generate one Kargar  (GenerateKargar)
+     */
     public int getGenerateKargar();
 
+    /**
+     * @return Grass needed to generate one sarbaaz (GenerateSarbaaz)
+     */
     public int getGenerateSarbaaz();
 
+    /**
+     * @return RateDeathResource
+     */
     public int getRateDeathResource();
 }
