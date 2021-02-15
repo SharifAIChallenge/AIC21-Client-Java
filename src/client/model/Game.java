@@ -28,12 +28,11 @@ public class Game implements World {
     private int generateSarbaaz;
     private int rateDeathResource;
     private Consumer<Message> sender;
-    private final int MAX_MESSAGE_LENGTH = 1000;
 
     private String message;
     private int messageValue;
 
-    public void sendDirection(Direction direction) {
+    public void chooseDirection(Direction direction) {
         int directionNumber;
         switch (direction) {
             case UP:
