@@ -61,7 +61,7 @@ public class Game {
 
     public void sendMessage(String message, int value) {
         JsonObject answer = new JsonObject();
-        answer.addProperty("messsage", message);
+        answer.addProperty("message", message);
         answer.addProperty("value", messageValue);
         Message messageToSend = new Message("2", answer);
         sender.accept(messageToSend);
