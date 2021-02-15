@@ -11,7 +11,7 @@ import client.model.Game;
 
 public class AI {
 
-    public void turn(Game game) {
+    public void turn(World world) {
         System.out.println("turn started: ");
         //some codes here
     }

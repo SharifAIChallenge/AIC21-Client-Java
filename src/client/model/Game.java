@@ -1,5 +1,6 @@
 package client.model;
 
+import client.World;
 import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
@@ -10,7 +11,7 @@ import common.network.data.Message;
 
 import java.util.function.Consumer;
 
-public class Game {
+public class Game implements World {
     //current state info
     private Ant ant;
     private ChatBox chatBox;
