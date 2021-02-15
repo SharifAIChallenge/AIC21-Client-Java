@@ -14,7 +14,6 @@ public class Game {
     //current state info
     private Ant ant;
     private ChatBox chatBox;
-
     //general info of agent
     private AntType antType;
     private int mapWidth;
@@ -28,6 +27,7 @@ public class Game {
     private int generateSarbaaz;
     private int rateDeathResource;
     private Consumer<Message> sender;
+    private final int MAX_MESSAGE_LENGTH = 1000;
 
     private String message;
     private int messageValue;
@@ -60,6 +60,8 @@ public class Game {
     }
 
     public void sendMessage(String message, int value) {
+        if (message.length() > MAX_MESSAGE_LENGTH)
+            return;
         JsonObject answer = new JsonObject();
         answer.addProperty("message", message);
         answer.addProperty("value", messageValue);
