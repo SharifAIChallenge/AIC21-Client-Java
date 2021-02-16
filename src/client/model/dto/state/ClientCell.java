@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * for storing maps' data (especially cells data), (the data that sent from the server via Json)
+ */
 public class ClientCell {
     @SerializedName(value = "cell_x")
     private int xCoordinate;

@@ -4,7 +4,7 @@ import client.model.enums.AntType;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * first configuration of the game will save in this class
+ * first configuration of the game will save in this class (the data that sent from the server via Json)
  * clients must NOT change or use this class
  */
 public class GameConfigMessage {

@@ -1,11 +1,18 @@
 package client.model.dto.state;
 
-import client.model.*;
+import client.model.Ant;
+import client.model.Cell;
+import client.model.Chat;
+import client.model.Resource;
 import client.model.enums.ResourceType;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * accessible data for current agent will save in this class (the data that sent from the server via Json)
+ * clients must NOT change or use this class
+ */
 public class CurrentStateMessage {
     @SerializedName(value = "current_x")
     private int currentX;
