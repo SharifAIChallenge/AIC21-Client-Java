@@ -1,7 +1,14 @@
 package client.model;
 
+import client.World;
 import client.model.enums.Direction;
 
+/**
+ * object for the {@link client.AI#turn(World)} answer
+ * Direction is an enum (check {@link Direction})
+ * message is the String for the chatbox of clients' teams
+ * and the messageValue is the value of the message
+ */
 public class Answer {
     private Direction direction;
     private String message;
