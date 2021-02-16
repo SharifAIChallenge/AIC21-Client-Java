@@ -3,6 +3,10 @@ package client.model.dto.config;
 import client.model.enums.AntType;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * first configuration of the game will save in this class
+ * clients must NOT change or use this class
+ */
 public class GameConfigMessage {
     @SerializedName(value = "map_width")
     private int mapWidth;

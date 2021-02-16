@@ -3,7 +3,7 @@ package client.model;
 import client.model.enums.ResourceType;
 
 /**
- *object for the recources in the game
+ *object for the resources in the game
  */
 public class Resource {
     private ResourceType type;
