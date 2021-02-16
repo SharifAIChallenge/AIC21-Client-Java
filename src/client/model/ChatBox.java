@@ -1,8 +1,15 @@
 package client.model;
 
+import client.World;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * list of all chats from the client's agents.
+ * each element is a {@link Chat}
+ * you can access your chatbox each turn, by the {@link client.World} obj on {@link client.AI#turn(World)}}
+ */
 public class ChatBox {
     private List<Chat> allChats;
 
