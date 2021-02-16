@@ -27,50 +27,8 @@ public class Game implements World {
     private int generateKargar;
     private int generateSarbaaz;
     private int rateDeathResource;
-    private Consumer<Message> sender;
 
-    private String message;
-    private int messageValue;
-
-    public void chooseDirection(Direction direction) {
-        int directionNumber;
-        switch (direction) {
-            case UP:
-                directionNumber = 2;
-                break;
-            case DOWN:
-                directionNumber = 4;
-                break;
-            case LEFT:
-                directionNumber = 3;
-                break;
-            case RIGHT:
-                directionNumber = 1;
-                break;
-            case CENTER:
-                directionNumber = 0;
-                break;
-            default:
-                directionNumber = -1;
-        }
-        JsonObject answer = new JsonObject();
-        answer.addProperty("direction", directionNumber);
-        Message messageToSend = new Message("1", answer);
-        sender.accept(messageToSend);
-    }
-
-    public void sendMessage(String message, int value) {
-        if (message.length() > MAX_MESSAGE_LENGTH)
-            return;
-        JsonObject answer = new JsonObject();
-        answer.addProperty("message", message);
-        answer.addProperty("value", messageValue);
-        Message messageToSend = new Message("2", answer);
-        sender.accept(messageToSend);
-    }
-
-    public Game(Consumer<Message> sender) {
-        this.sender = sender;
+    public Game() {
     }
 
     public Game(Game game) {
@@ -85,11 +43,6 @@ public class Game implements World {
         this.generateKargar = game.getGenerateKargar();
         this.generateSarbaaz = game.getGenerateSarbaaz();
         this.rateDeathResource = game.getRateDeathResource();
-        this.sender = game.getSender();
-    }
-
-    private Consumer<Message> getSender() {
-        return sender;
     }
 
     //general game config will add to game with this method
