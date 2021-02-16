@@ -1,8 +1,10 @@
 package client;
 
+import client.model.Answer;
 import client.model.Game;
 import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
+import client.model.enums.Direction;
 import com.google.gson.JsonObject;
 import common.network.Json;
 import common.network.data.Message;
@@ -68,7 +70,7 @@ public class Controller {
         try {
             network = new client.Network(this::handleMessage);
             sender = network::send;
-            game = new Game(sender);
+            game = new Game();
             ai = new AI();
 
             network.setConnectionData(host, port, token);
@@ -131,15 +133,60 @@ public class Controller {
         new Thread(() ->
         {
             try {
-                ai.turn(game);
+                sendResult(ai.turn(game));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            sendMessage(msg);
+            sendMessageToServer(msg);
         }).start();
     }
 
-    private void sendMessage(Message message) {
+    private void sendResult(Answer answer) {
+        chooseDirection(answer.getDirection());
+        sendMessage(answer.getMessage(), answer.getMessageValue());
+    }
+
+    public void chooseDirection(Direction direction) {
+        int directionNumber;
+        if (direction == null)
+            directionNumber = -1;
+        else
+            switch (direction) {
+                case UP:
+                    directionNumber = 2;
+                    break;
+                case DOWN:
+                    directionNumber = 4;
+                    break;
+                case LEFT:
+                    directionNumber = 3;
+                    break;
+                case RIGHT:
+                    directionNumber = 1;
+                    break;
+                case CENTER:
+                    directionNumber = 0;
+                    break;
+                default:
+                    directionNumber = -1;
+            }
+        JsonObject answer = new JsonObject();
+        answer.addProperty("direction", directionNumber);
+        Message messageToSend = new Message("1", answer);
+        sender.accept(messageToSend);
+    }
+
+    public void sendMessage(String message, int value) {
+        if (message == null || message.length() > World.MAX_MESSAGE_LENGTH)
+            return;
+        JsonObject answer = new JsonObject();
+        answer.addProperty("message", message);
+        answer.addProperty("value", value);
+        Message messageToSend = new Message("2", answer);
+        sender.accept(messageToSend);
+    }
+
+    private void sendMessageToServer(Message message) {
         sender.accept(message);
     }
 
