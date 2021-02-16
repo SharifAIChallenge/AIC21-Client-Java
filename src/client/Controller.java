@@ -136,7 +136,7 @@ public class Controller {
     /**
      * Runs client AI code and sending the sesult to the server
      * @param game is the initial data for the game
-     * @param msg is the current state of the game which have been received from the server
+     * @param msg  is the current state of the game which have been received from the server
      */
     private void turn(Game game, Message msg) {
         new Thread(() ->
@@ -155,12 +155,15 @@ public class Controller {
      * @param answer is the result of AI
      */
     private void sendResult(Answer answer) {
+        if (answer == null)
+            answer = new Answer(null);
         chooseDirection(answer.getDirection());
         sendMessage(answer.getMessage(), answer.getMessageValue());
     }
 
     /**
      * Analyse and send Direction message to the server
+     *
      * @param direction is a enum obj and represents the direction
      */
     public void chooseDirection(Direction direction) {
@@ -195,8 +198,9 @@ public class Controller {
 
     /**
      * Analyse and send chat message to the server
+     *
      * @param message is the chat String
-     * @param value is the value of the message
+     * @param value   is the value of the message
      */
     public void sendMessage(String message, int value) {
         if (message == null || message.length() > World.MAX_MESSAGE_LENGTH)
@@ -210,6 +214,7 @@ public class Controller {
 
     /**
      * sends a Message obj to server
+     *
      * @param message is the object for sending to the server
      */
     private void sendMessageToServer(Message message) {
