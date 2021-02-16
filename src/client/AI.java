@@ -1,7 +1,7 @@
 package client;
 
 
-import client.model.Game;
+import client.model.Answer;
 
 /**
  * You must put your code in this class.
@@ -11,8 +11,9 @@ import client.model.Game;
 
 public class AI {
 
-    public void turn(World world) {
+    public Answer turn(World world) {
         System.out.println("turn started: ");
         //some codes here
+        return null;
     }
 }
