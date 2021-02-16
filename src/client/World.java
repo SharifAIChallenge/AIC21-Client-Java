@@ -12,7 +12,7 @@ public interface World {
      * use this method for choosing your moving direction
      *
      * @param direction is an enum object (UP, DOWN, LEFT, RIGHT, CENTER)
-     *                  you can access different direction using  {@link client.model.enums.Direction}
+     * you can access different direction using  {@link client.model.enums.Direction}
      */
     public void chooseDirection(Direction direction);
 
