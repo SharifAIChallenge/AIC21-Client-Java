@@ -120,6 +120,10 @@ public class Controller {
         game.initGameConfig(clientInitMessage);
     }
 
+    /**
+     * Handles turn message and runs client AI code and sending the sesult to the server
+     * @param msg is the current state of the game which have been received from the server
+     */
     private void handleTurnMessage(Message msg) {
         Game newGame = new Game(game);
         CurrentStateMessage clientTurnMessage = Json.GSON.fromJson(msg.getInfo(), CurrentStateMessage.class);
@@ -129,6 +133,11 @@ public class Controller {
         turn(newGame, endMsg);
     }
 
+    /**
+     * Runs client AI code and sending the sesult to the server
+     * @param game is the initial data for the game
+     * @param msg is the current state of the game which have been received from the server
+     */
     private void turn(Game game, Message msg) {
         new Thread(() ->
         {
@@ -141,11 +150,19 @@ public class Controller {
         }).start();
     }
 
+    /**
+     *Analyse the result of the AI code
+     * @param answer is the result of AI
+     */
     private void sendResult(Answer answer) {
         chooseDirection(answer.getDirection());
         sendMessage(answer.getMessage(), answer.getMessageValue());
     }
 
+    /**
+     * Analyse and send Direction message to the server
+     * @param direction is a enum obj and represents the direction
+     */
     public void chooseDirection(Direction direction) {
         int directionNumber;
         if (direction == null)
@@ -176,6 +193,11 @@ public class Controller {
         sender.accept(messageToSend);
     }
 
+    /**
+     * Analyse and send chat message to the server
+     * @param message is the chat String
+     * @param value is the value of the message
+     */
     public void sendMessage(String message, int value) {
         if (message == null || message.length() > World.MAX_MESSAGE_LENGTH)
             return;
@@ -186,6 +208,10 @@ public class Controller {
         sender.accept(messageToSend);
     }
 
+    /**
+     * sends a Message obj to server
+     * @param message is the object for sending to the server
+     */
     private void sendMessageToServer(Message message) {
         sender.accept(message);
     }
