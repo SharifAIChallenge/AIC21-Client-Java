@@ -1,5 +1,9 @@
 package client.model;
 
+/**
+ * the visible map for the agent (and its data such as other visible agent or cells' resources)
+ * will store here
+ */
 public class Map {
     private Cell[][] cells;
     private int width;
