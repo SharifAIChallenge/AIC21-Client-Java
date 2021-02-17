@@ -11,6 +11,11 @@ import common.network.data.Message;
 
 import java.util.function.Consumer;
 
+/**
+ * current state info and general info of the game will save in a Game obj
+ * clients must NOT change or use this class
+ * {@link client.AI#turn(World)} uses World interface to access this data
+ */
 public class Game implements World {
     //current state info
     private Ant ant;
