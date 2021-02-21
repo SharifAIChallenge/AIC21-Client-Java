@@ -122,6 +122,7 @@ public class Controller {
 
     /**
      * Handles turn message and runs client AI code and sending the sesult to the server
+     *
      * @param msg is the current state of the game which have been received from the server
      */
     private void handleTurnMessage(Message msg) {
@@ -135,6 +136,7 @@ public class Controller {
 
     /**
      * Runs client AI code and sending the sesult to the server
+     *
      * @param game is the initial data for the game
      * @param msg  is the current state of the game which have been received from the server
      */
@@ -151,7 +153,8 @@ public class Controller {
     }
 
     /**
-     *Analyse the result of the AI code
+     * Analyse the result of the AI code
+     *
      * @param answer is the result of AI
      */
     private void sendResult(Answer answer) {
