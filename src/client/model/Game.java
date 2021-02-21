@@ -5,22 +5,17 @@ import client.model.dto.config.GameConfigMessage;
 import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
 import client.model.enums.AntType;
-import client.model.enums.Direction;
-import com.google.gson.JsonObject;
-import common.network.data.Message;
-
-import java.util.function.Consumer;
 
 /**
  * current state info and general info of the game will save in a Game obj
- * clients must NOT change or use this class
- * {@link client.AI#turn(World)} uses World interface to access this data
+ * clients must NOT change or use this class {@link client.AI#turn(World)} uses
+ * World interface to access this data
  */
 public class Game implements World {
-    //current state info
+    // current state info
     private Ant ant;
     private ChatBox chatBox;
-    //general info of agent
+    // general info of agent
     private AntType antType;
     private int mapWidth;
     private int mapHeight;
@@ -50,7 +45,7 @@ public class Game implements World {
         this.rateDeathResource = game.getRateDeathResource();
     }
 
-    //general game config will add to game with this method
+    // general game config will add to game with this method
     public void initGameConfig(GameConfigMessage configMessage) {
         antType = configMessage.getAntType();
         mapWidth = configMessage.getMapWidth();
@@ -65,16 +60,18 @@ public class Game implements World {
         rateDeathResource = configMessage.getRateDeathResource();
     }
 
-    //set current state of game, includes [ant] & [chatBox], other fields are general info
+    // set current state of game, includes [ant] & [chatBox], other fields are
+    // general info
     public void setCurrentState(CurrentStateMessage stateMessage) {
         chatBox = new ChatBox(stateMessage.getChats());
         ant = initialAntState(stateMessage);
     }
 
-    //create Ant template from incoming message info
+    // create Ant template from incoming message info
     private Ant initialAntState(CurrentStateMessage stateMessage) {
         Cell[][] cells = stateMessage.getVisibleCells(mapHeight, mapWidth);
-        Map map = new Map(cells, mapWidth, mapHeight, attackDistance, stateMessage.getCurrentX(), stateMessage.getCurrentY());
+        Map map = new Map(cells, mapWidth, mapHeight, attackDistance, stateMessage.getCurrentX(),
+                stateMessage.getCurrentY());
 
         return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage);
     }
