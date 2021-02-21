@@ -4,6 +4,9 @@ import client.model.enums.AntTeam;
 import client.model.enums.AntType;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * for storing ants' data (the data that sent from the server via Json)
+ */
 public class ClientAnt {
     @SerializedName(value = "ant_team")
     private int antTeam;

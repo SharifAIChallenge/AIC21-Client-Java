@@ -5,6 +5,12 @@ import client.model.enums.CellType;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * one cell of the map
+ * you can access map cells using {@link client.model.Map}
+ * X for horizontal coordinate
+ * Y for vertical coordinates
+ */
 public class Cell {
     private CellType type;
     private int x;
