@@ -15,6 +15,7 @@ public class Map {
         this.width = width;
         this.height = height;
         this.manhattanDistance = manhattanDistance;
+        this.cells = cells;
         this.cells = createCompressedCells(currentX, currentY);
     }
 
@@ -34,7 +35,10 @@ public class Map {
 
         for (int i = starterI; i < endI; i++) {
             for (int j = starterJ; j < endJ; j++) {
-                compressedCells[j + yTransform][i + xTransform] = cells[j][i];
+                try {
+                    compressedCells[j + yTransform][i + xTransform] = cells[j][i];
+                } catch (IndexOutOfBoundsException ignored) {
+                }
             }
         }
 

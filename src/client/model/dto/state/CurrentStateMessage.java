@@ -61,6 +61,8 @@ public class CurrentStateMessage {
      */
     public Cell[][] getVisibleCells(int height, int width) {
         Cell[][] cells = new Cell[height][width];
+        if (aroundCells == null)
+            return cells;
         for (ClientCell clientCell : aroundCells) {
             //derive cell info and make an instance of it
             Cell cell = new Cell(clientCell.getCellType(), clientCell.getYCoordinate(), clientCell.getYCoordinate(), clientCell.getResource());
