@@ -65,7 +65,7 @@ public class CurrentStateMessage {
             return cells;
         for (ClientCell clientCell : aroundCells) {
             //derive cell info and make an instance of it
-            Cell cell = new Cell(clientCell.getCellType(), clientCell.getYCoordinate(), clientCell.getYCoordinate(), clientCell.getResource());
+            Cell cell = new Cell(clientCell.getCellType(), clientCell.getXCoordinate(), clientCell.getYCoordinate(), clientCell.getResource());
             for (ClientAnt clientAnt : clientCell.getPresentAnts()) {
                 //TODO if we decide to change Cell.presentAnts<Ant>, we should change it here
                 Ant simpleAnt = new Ant(clientAnt.getAntType(), clientAnt.getAntTeam());
