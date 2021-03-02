@@ -100,6 +100,7 @@ public class Network {
             handleIOE(e);
             return;
         } catch (Exception e) {
+            e.printStackTrace();
             Log.e(TAG, "Can not connect to server.");
             return;
         }

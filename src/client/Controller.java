@@ -103,6 +103,8 @@ public class Controller {
             case "4":
                 handleTurnMessage(msg);
                 break;
+            case "7":
+                System.exit(0);
             default:
                 Log.w(TAG, "Undefined message received: " + msg.type);
                 break;
