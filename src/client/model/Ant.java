@@ -15,13 +15,14 @@ public class Ant {
     // manhattan distance of ant's view
     private int viewDistance;
 
-    public Ant(AntType type, AntTeam team) {
+    public Ant(AntType type, AntTeam team, int currentX, int currentY) {
         this.type = type;
         this.team = team;
+        this.currentX = currentX;
+        this.currentY = currentY;
+        //below data are not valid
         this.currentResource = null;
         this.visibleMap = null;
-        this.currentX = -1;
-        this.currentY = -1;
         this.health = -1;
         this.viewDistance = -1;
     }
