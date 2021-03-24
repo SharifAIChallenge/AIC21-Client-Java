@@ -55,7 +55,7 @@ public class CurrentStateMessage {
         return aroundCells;
     }
 
-    /*
+    /**
      * @return cell[][] which is a 2-D array of entire map, those cell that are visible,
      * have filled with appropriate cell object, others are null
      */
@@ -68,7 +68,7 @@ public class CurrentStateMessage {
             Cell cell = new Cell(clientCell.getCellType(), clientCell.getXCoordinate(), clientCell.getYCoordinate(), clientCell.getResource());
             for (ClientAnt clientAnt : clientCell.getPresentAnts()) {
                 //TODO if we decide to change Cell.presentAnts<Ant>, we should change it here
-                Ant simpleAnt = new Ant(clientAnt.getAntType(), clientAnt.getAntTeam());
+                Ant simpleAnt = new Ant(clientAnt.getAntType(), clientAnt.getAntTeam(), cell.getXCoordinate(), cell.getYCoordinate());
                 cell.addAntToCell(simpleAnt);
             }
 
