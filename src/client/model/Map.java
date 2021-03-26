@@ -28,8 +28,8 @@ public class Map {
     private Cell[][] createCompressedCells(int midX, int midY) {
         Cell[][] compressedCells = new Cell[2 * manhattanDistance + 1][2 * manhattanDistance + 1];
 
-        int starterI = Math.max(midY - manhattanDistance, 0), endI = Math.min(midY + manhattanDistance, height);
-        int starterJ = Math.max(midX - manhattanDistance, 0), endJ = Math.min(midX + manhattanDistance, width);
+        int starterI = Math.max(midY - manhattanDistance, 0), endI = Math.min(midY + manhattanDistance + 1, height);
+        int starterJ = Math.max(midX - manhattanDistance, 0), endJ = Math.min(midX + manhattanDistance + 1, width);
         int xTransform = manhattanDistance - midX;
         int yTransform = manhattanDistance - midY;
 
