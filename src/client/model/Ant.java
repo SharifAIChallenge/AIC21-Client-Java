@@ -39,7 +39,7 @@ public class Ant {
     }
 
     private Cell getMapCell(int xStep, int yStep) {
-        return visibleMap.getCell(xStep, yStep, viewDistance);
+        return visibleMap.getCell(xStep, yStep);
     }
 
     public Cell getNeighborCell(int xStep, int yStep) {

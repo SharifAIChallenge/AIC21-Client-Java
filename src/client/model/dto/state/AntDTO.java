@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * for storing ants' data (the data that sent from the server via Json)
  */
-public class ClientAnt {
+public class AntDTO {
     @SerializedName(value = "ant_team")
     private int antTeam;
     @SerializedName(value = "ant_type")
