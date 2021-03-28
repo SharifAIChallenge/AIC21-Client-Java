@@ -8,58 +8,32 @@ public class Map {
     private Cell[][] cells;
     private int width;
     private int height;
-    private int manhattanDistance;
+    private int antCurrentX;
+    private int antCurrentY;
 
-    //cells array is a [height][width] array
-    public Map(Cell[][] cells, int width, int height, int manhattanDistance, int currentX, int currentY) {
+    //cells array is a [width][height] array
+    public Map(Cell[][] cells, int width, int height, int currentX, int currentY) {
         this.width = width;
         this.height = height;
-        this.manhattanDistance = manhattanDistance;
         this.cells = cells;
-        this.cells = createCompressedCells(currentX, currentY);
+        this.antCurrentX = currentX;
+        this.antCurrentY = currentY;
     }
 
-    /*
-     * transform {cells} array which is a [height][width] array to
-     * a [2 * distance][2 * distance] array
-     *
-     * @return a compressed array that is a [2*distance + 1][2*distance + 1] array
-     */
-    private Cell[][] createCompressedCells(int midX, int midY) {
-        Cell[][] compressedCells = new Cell[2 * manhattanDistance + 1][2 * manhattanDistance + 1];
-
-        int starterI = Math.max(midY - manhattanDistance, 0), endI = Math.min(midY + manhattanDistance + 1, height);
-        int starterJ = Math.max(midX - manhattanDistance, 0), endJ = Math.min(midX + manhattanDistance + 1, width);
-        int xTransform = manhattanDistance - midX;
-        int yTransform = manhattanDistance - midY;
-
-        for (int i = starterI; i < endI; i++) {
-            for (int j = starterJ; j < endJ; j++) {
-                try {
-                    compressedCells[j + yTransform][i + xTransform] = cells[j][i];
-                } catch (IndexOutOfBoundsException ignored) {
-                }
-            }
-        }
-
-        return compressedCells;
-    }
-
-    /*
+    /**
      * the top left cell has coordinate (0, 0)
      * [x] indicate horizontal moves
      * [y] indicate vertical moves
      *
-     * @param x, y are relative to current cell of ant
+     * @param dx,dy are relative to current cell of ant
      */
-    public Cell getCell(int x, int y, int distance) {
-        if (Math.abs(x) + Math.abs(y) > distance)
-            return null;
-        if (distance + x >= width | distance + x < 0)
-            return null;
-        if (distance + y < 0 | distance + y >= height)
+    public Cell getCell(int dx, int dy) {
+        int x = antCurrentX + dx;
+        int y = antCurrentY + dy;
+
+        if (x < 0 | x >= width | y < 0 | y >= height)
             return null;
 
-        return cells[distance + y][distance + x];
+        return cells[x][y];
     }
 }

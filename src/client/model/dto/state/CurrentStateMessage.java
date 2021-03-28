@@ -27,7 +27,7 @@ public class CurrentStateMessage {
     @SerializedName(value = "chat_box")
     private List<Chat> chats;
     @SerializedName(value = "around_cells")
-    private List<ClientCell> aroundCells;
+    private List<CellDTO> aroundCells;
 
     public int getCurrentX() {
         return currentX;
@@ -51,7 +51,7 @@ public class CurrentStateMessage {
         return chats;
     }
 
-    public List<ClientCell> getAroundCells() {
+    public List<CellDTO> getAroundCells() {
         return aroundCells;
     }
 
@@ -60,20 +60,19 @@ public class CurrentStateMessage {
      * have filled with appropriate cell object, others are null
      */
     public Cell[][] getVisibleCells(int height, int width) {
-        Cell[][] cells = new Cell[height][width];
+        Cell[][] cells = new Cell[width][height];
         if (aroundCells == null)
             return cells;
-        for (ClientCell clientCell : aroundCells) {
+        for (CellDTO cellDTO : aroundCells) {
             //derive cell info and make an instance of it
-            Cell cell = new Cell(clientCell.getCellType(), clientCell.getXCoordinate(), clientCell.getYCoordinate(), clientCell.getResource());
-            for (ClientAnt clientAnt : clientCell.getPresentAnts()) {
-                //TODO if we decide to change Cell.presentAnts<Ant>, we should change it here
-                Ant simpleAnt = new Ant(clientAnt.getAntType(), clientAnt.getAntTeam(), cell.getXCoordinate(), cell.getYCoordinate());
+            Cell cell = new Cell(cellDTO.getCellType(), cellDTO.getXCoordinate(), cellDTO.getYCoordinate(), cellDTO.getResource());
+            for (AntDTO antDTO : cellDTO.getPresentAnts()) {
+                Ant simpleAnt = new Ant(antDTO.getAntType(), antDTO.getAntTeam(), cell.getXCoordinate(), cell.getYCoordinate());
                 cell.addAntToCell(simpleAnt);
             }
 
             //add created cell to cells[][]
-            cells[cell.getYCoordinate()][cell.getXCoordinate()] = cell;
+            cells[cell.getXCoordinate()][cell.getYCoordinate()] = cell;
         }
         return cells;
     }

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * for storing maps' data (especially cells data), (the data that sent from the server via Json)
  */
-public class ClientCell {
+public class CellDTO {
     @SerializedName(value = "cell_x")
     private int xCoordinate;
     @SerializedName(value = "cell_y")
@@ -22,7 +22,7 @@ public class ClientCell {
     @SerializedName(value = "resource_type")
     private int resourceType;
     @SerializedName(value = "ants")
-    private List<ClientAnt> presentAnts;
+    private List<AntDTO> presentAnts;
 
     public int getXCoordinate() {
         return xCoordinate;
@@ -42,7 +42,7 @@ public class ClientCell {
         return new Resource(rType, value);
     }
 
-    public List<ClientAnt> getPresentAnts() {
+    public List<AntDTO> getPresentAnts() {
         return presentAnts;
     }
 }

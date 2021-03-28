@@ -70,8 +70,7 @@ public class Game implements World {
     // create Ant template from incoming message info
     private Ant initialAntState(CurrentStateMessage stateMessage) {
         Cell[][] cells = stateMessage.getVisibleCells(mapHeight, mapWidth);
-        Map map = new Map(cells, mapWidth, mapHeight, attackDistance, stateMessage.getCurrentX(),
-                stateMessage.getCurrentY());
+        Map map = new Map(cells, mapWidth, mapHeight, stateMessage.getCurrentX(), stateMessage.getCurrentY());
 
         return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage);
     }
