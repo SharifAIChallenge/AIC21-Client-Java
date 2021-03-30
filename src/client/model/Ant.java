@@ -13,7 +13,7 @@ public class Ant {
     private int health;
     private Map visibleMap;
     // manhattan distance of ant's view
-    private int viewDistance;
+    private int attackDistance;
 
     public Ant(AntType type, AntTeam team, int currentX, int currentY) {
         this.type = type;
@@ -24,10 +24,10 @@ public class Ant {
         this.currentResource = null;
         this.visibleMap = null;
         this.health = -1;
-        this.viewDistance = -1;
+        this.attackDistance = -1;
     }
 
-    public Ant(AntType type, AntTeam team, int viewDistance, Map map, CurrentStateMessage state) {
+    public Ant(AntType type, AntTeam team, int attackDistance, Map map, CurrentStateMessage state) {
         this.type = type;
         this.team = team;
         this.currentResource = state.getCurrentResource();
@@ -35,7 +35,7 @@ public class Ant {
         this.currentY = state.getCurrentY();
         this.health = state.getHealth();
         this.visibleMap = map;
-        this.viewDistance = viewDistance;
+        this.attackDistance = attackDistance;
     }
 
     private Cell getMapCell(int xStep, int yStep) {
@@ -74,7 +74,7 @@ public class Ant {
         return health;
     }
 
-    public int getViewDistance() {
-        return viewDistance;
+    public int getAttackDistance() {
+        return attackDistance;
     }
 }
