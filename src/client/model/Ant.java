@@ -1,8 +1,12 @@
 package client.model;
 
+import client.model.dto.state.AttackDTO;
 import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
 import client.model.enums.AntType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Ant {
     private AntType type;
@@ -14,6 +18,7 @@ public class Ant {
     private Map visibleMap;
     private int attackDistance;
     private int viewDistance;
+    private List<AttackDTO> attacks;
 
     public Ant(AntType type, AntTeam team, int currentX, int currentY) {
         this.type = type;
@@ -26,6 +31,7 @@ public class Ant {
         this.health = -1;
         this.attackDistance = -1;
         this.viewDistance = -1;
+        this.attacks = new ArrayList<>();
     }
 
     public Ant(AntType type, AntTeam team, int attackDistance, Map map, CurrentStateMessage state, int viewDistance) {
@@ -38,6 +44,11 @@ public class Ant {
         this.visibleMap = map;
         this.attackDistance = attackDistance;
         this.viewDistance = viewDistance;
+        this.attacks = state.getAttacks();
+    }
+
+    public List<AttackDTO> getAttacks() {
+        return attacks;
     }
 
     public int getXCoordinate() {
