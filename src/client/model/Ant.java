@@ -38,14 +38,6 @@ public class Ant {
         this.attackDistance = attackDistance;
     }
 
-    private Cell getMapCell(int xStep, int yStep) {
-        return visibleMap.getCell(xStep, yStep);
-    }
-
-    public Cell getNeighborCell(int xStep, int yStep) {
-        return getMapCell(xStep, yStep);
-    }
-
     public int getXCoordinate() {
         return currentX;
     }
@@ -54,9 +46,6 @@ public class Ant {
         return currentY;
     }
 
-    public Cell getLocationCell() {
-        return getNeighborCell(0, 0);
-    }
 
     public AntType getType() {
         return type;
@@ -76,5 +65,17 @@ public class Ant {
 
     public int getAttackDistance() {
         return attackDistance;
+    }
+
+    public Map getVisibleMap() {
+        return visibleMap;
+    }
+
+    public int getCurrentX() {
+        return currentX;
+    }
+
+    public int getCurrentY() {
+        return currentY;
     }
 }

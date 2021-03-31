@@ -2,9 +2,13 @@ package client.model;
 
 import client.World;
 import client.model.dto.config.GameConfigMessage;
+import client.model.dto.state.AntDTO;
+import client.model.dto.state.CellDTO;
 import client.model.dto.state.CurrentStateMessage;
 import client.model.enums.AntTeam;
 import client.model.enums.AntType;
+
+import java.util.List;
 
 /**
  * current state info and general info of the game will save in a Game obj
@@ -17,8 +21,6 @@ public class Game implements World {
     private ChatBox chatBox;
     // general info of agent
     private AntType antType;
-    private int mapWidth;
-    private int mapHeight;
     private int baseX;
     private int baseY;
     private int healthKargar;
@@ -33,8 +35,6 @@ public class Game implements World {
 
     public Game(Game game) {
         this.antType = game.getAntType();
-        this.mapWidth = game.getMapWidth();
-        this.mapHeight = game.getMapHeight();
         this.baseX = game.getBaseX();
         this.baseY = game.getBaseY();
         this.healthKargar = game.getHealthKargar();
@@ -48,8 +48,6 @@ public class Game implements World {
     // general game config will add to game with this method
     public void initGameConfig(GameConfigMessage configMessage) {
         antType = configMessage.getAntType();
-        mapWidth = configMessage.getMapWidth();
-        mapHeight = configMessage.getMapHeight();
         baseX = configMessage.getBaseX();
         baseY = configMessage.getBaseY();
         healthKargar = configMessage.getHealthKargar();
@@ -69,8 +67,20 @@ public class Game implements World {
 
     // create Ant template from incoming message info
     private Ant initialAntState(CurrentStateMessage stateMessage) {
-        Cell[][] cells = stateMessage.getVisibleCells(mapHeight, mapWidth);
-        Map map = new Map(cells, mapWidth, mapHeight, stateMessage.getCurrentX(), stateMessage.getCurrentY());
+        List<CellDTO> cellsDTO = stateMessage.getAroundCells();
+        Cell[] cells = new Cell[cellsDTO.size()];
+        for (int i = 0; i < cellsDTO.size(); i++) {
+            cells[i] = new Cell(cellsDTO.get(i).getCellType(),
+                    cellsDTO.get(i).getXCoordinate(),
+                    cellsDTO.get(i).getYCoordinate(),
+                    cellsDTO.get(i).getResource());
+            for (AntDTO antDTO : cellsDTO.get(i).getPresentAnts()) {
+                Ant simpleAnt = new Ant(antDTO.getAntType(), antDTO.getAntTeam(),
+                        cells[i].getXCoordinate(), cells[i].getYCoordinate());
+                cells[i].addAntToCell(simpleAnt);
+            }
+        }
+        Map map = new Map(cells, stateMessage.getCurrentX(), stateMessage.getCurrentY());
 
         return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage);
     }
@@ -85,14 +95,6 @@ public class Game implements World {
 
     public ChatBox getChatBox() {
         return chatBox;
-    }
-
-    public int getMapWidth() {
-        return mapWidth;
-    }
-
-    public int getMapHeight() {
-        return mapHeight;
     }
 
     public int getBaseX() {
