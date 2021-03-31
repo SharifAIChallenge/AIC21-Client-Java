@@ -20,6 +20,8 @@ public class GameConfigMessage {
     private int healthSarbaaz;
     @SerializedName(value = "attack_distance")
     private int attackDistance;
+    @SerializedName(value = "view_distance")
+    private int viewDistance;
     @SerializedName(value = "generate_kargar")
     private int generateKargar;
     @SerializedName(value = "generate_sarbaaz")
@@ -61,5 +63,9 @@ public class GameConfigMessage {
 
     public int getRateDeathResource() {
         return rateDeathResource;
+    }
+
+    public int getViewDistance() {
+        return viewDistance;
     }
 }

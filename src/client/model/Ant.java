@@ -12,8 +12,8 @@ public class Ant {
     private int currentY;
     private int health;
     private Map visibleMap;
-    // manhattan distance of ant's view
     private int attackDistance;
+    private int viewDistance;
 
     public Ant(AntType type, AntTeam team, int currentX, int currentY) {
         this.type = type;
@@ -25,9 +25,10 @@ public class Ant {
         this.visibleMap = null;
         this.health = -1;
         this.attackDistance = -1;
+        this.viewDistance = -1;
     }
 
-    public Ant(AntType type, AntTeam team, int attackDistance, Map map, CurrentStateMessage state) {
+    public Ant(AntType type, AntTeam team, int attackDistance, Map map, CurrentStateMessage state, int viewDistance) {
         this.type = type;
         this.team = team;
         this.currentResource = state.getCurrentResource();
@@ -36,6 +37,7 @@ public class Ant {
         this.health = state.getHealth();
         this.visibleMap = map;
         this.attackDistance = attackDistance;
+        this.viewDistance = viewDistance;
     }
 
     public int getXCoordinate() {
@@ -77,5 +79,9 @@ public class Ant {
 
     public int getCurrentY() {
         return currentY;
+    }
+
+    public int getViewDistance() {
+        return viewDistance;
     }
 }
