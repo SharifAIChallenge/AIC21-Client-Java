@@ -25,12 +25,6 @@ public class AI {
         // Enter your AI code here
         AI.turn++;
         System.out.println("turn passed!"); // this is a sample code you can easily delete this line
-        Ant ant = world.getAnt();
-        System.out.println(world.getAnt().getVisibleMap().getRelativeCell(0, 0));
-        System.out.println(world.getAnt().getVisibleMap().getRelativeCell(1, 0));
-        System.out.println(world.getAnt().getVisibleMap().getRelativeCell(0, 1));
-        System.out.println(world.getAnt().getVisibleMap().getRelativeCell(1, 1));
-
         // You can generate an answer using one of these two ways:
         Answer answer_1 = new Answer(Direction.DOWN);
         Answer answer_2 = new Answer(Direction.UP, "new message", 10);
