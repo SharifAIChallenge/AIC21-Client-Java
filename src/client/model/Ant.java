@@ -51,12 +51,12 @@ public class Ant {
         return attacks;
     }
 
-    private Cell getMapCell(int xStep, int yStep) {
+    private Cell getMapRelativeCell(int xStep, int yStep) {
         return visibleMap.getRelativeCell(xStep, yStep);
     }
 
     public Cell getNeighborCell(int xStep, int yStep) {
-        return getMapCell(xStep, yStep);
+        return getMapRelativeCell(xStep, yStep);
     }
 
     public int getXCoordinate() {
