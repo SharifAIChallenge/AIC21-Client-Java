@@ -8,6 +8,10 @@ import com.google.gson.annotations.SerializedName;
  * clients must NOT change or use this class
  */
 public class GameConfigMessage {
+    @SerializedName(value = "map_width")
+    private int mapWidth;
+    @SerializedName(value = "map_height")
+    private int mapHeight;
     @SerializedName(value = "ant_type")
     private int antType;
     @SerializedName(value = "base_x")
@@ -28,6 +32,14 @@ public class GameConfigMessage {
     private int generateSarbaaz;
     @SerializedName(value = "rate_death_resource")
     private int rateDeathResource;
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
 
     public AntType getAntType() {
         return AntType.values()[antType];

@@ -60,4 +60,26 @@ public class CurrentStateMessage {
     public List<AttackDTO> getAttacks() {
         return attacks;
     }
+
+    /**
+     * @return cell[][] which is a 2-D array of entire map, those cell that are visible,
+     * have filled with appropriate cell object, others are null
+     */
+    public Cell[][] getVisibleCells(int height, int width) {
+        Cell[][] cells = new Cell[width][height];
+        if (aroundCells == null)
+            return cells;
+        for (CellDTO cellDTO : aroundCells) {
+            //derive cell info and make an instance of it
+            Cell cell = new Cell(cellDTO.getCellType(), cellDTO.getXCoordinate(), cellDTO.getYCoordinate(), cellDTO.getResource());
+            for (AntDTO antDTO : cellDTO.getPresentAnts()) {
+                Ant simpleAnt = new Ant(antDTO.getAntType(), antDTO.getAntTeam(), cell.getXCoordinate(), cell.getYCoordinate());
+                cell.addAntToCell(simpleAnt);
+            }
+
+            //add created cell to cells[][]
+            cells[cell.getXCoordinate()][cell.getYCoordinate()] = cell;
+        }
+        return cells;
+    }
 }

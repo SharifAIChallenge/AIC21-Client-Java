@@ -26,6 +26,16 @@ public interface World {
     public ChatBox getChatBox();
 
     /**
+     * @return map's width
+     */
+    public int getMapWidth();
+
+    /**
+     * @return map's height
+     */
+    public int getMapHeight();
+
+    /**
      * @return X coordinate of the team's base
      */
     public int getBaseX();

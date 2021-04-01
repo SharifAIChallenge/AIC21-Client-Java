@@ -5,26 +5,35 @@ package client.model;
  * will store here
  */
 public class Map {
-    private Cell[] cells;
+    private Cell[][] cells;
+    private int width;
+    private int height;
     private int antCurrentX;
     private int antCurrentY;
 
     //cells array is a [width][height] array
-    public Map(Cell[] cells, int currentX, int currentY) {
+    public Map(Cell[][] cells, int width, int height, int currentX, int currentY) {
+        this.width = width;
+        this.height = height;
         this.cells = cells;
         this.antCurrentX = currentX;
         this.antCurrentY = currentY;
     }
 
-    public Cell[] getCells() {
-        return cells;
-    }
+    /**
+     * the top left cell has coordinate (0, 0)
+     * [x] indicate horizontal moves
+     * [y] indicate vertical moves
+     *
+     * @param dx,dy are relative to current cell of ant
+     */
+    public Cell getCell(int dx, int dy) {
+        int x = antCurrentX + dx;
+        int y = antCurrentY + dy;
 
-    public int getAntCurrentX() {
-        return antCurrentX;
-    }
+        if (x < 0 | x >= width | y < 0 | y >= height)
+            return null;
 
-    public int getAntCurrentY() {
-        return antCurrentY;
+        return cells[x][y];
     }
 }
