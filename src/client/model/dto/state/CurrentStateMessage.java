@@ -28,6 +28,8 @@ public class CurrentStateMessage {
     private List<Chat> chats;
     @SerializedName(value = "around_cells")
     private List<CellDTO> aroundCells;
+    @SerializedName(value = "attacks")
+    private List<AttackDTO> attacks;    // near by attacks last turn
 
     public int getCurrentX() {
         return currentX;
@@ -53,6 +55,10 @@ public class CurrentStateMessage {
 
     public List<CellDTO> getAroundCells() {
         return aroundCells;
+    }
+
+    public List<AttackDTO> getAttacks() {
+        return attacks;
     }
 
     /**

@@ -24,6 +24,7 @@ public class Game implements World {
     private int healthKargar;
     private int healthSarbaaz;
     private int attackDistance;
+    private int viewDistance;
     private int generateKargar;
     private int generateSarbaaz;
     private int rateDeathResource;
@@ -43,6 +44,7 @@ public class Game implements World {
         this.generateKargar = game.getGenerateKargar();
         this.generateSarbaaz = game.getGenerateSarbaaz();
         this.rateDeathResource = game.getRateDeathResource();
+        this.viewDistance = game.getViewDistance();
     }
 
     // general game config will add to game with this method
@@ -58,6 +60,7 @@ public class Game implements World {
         generateKargar = configMessage.getGenerateKargar();
         generateSarbaaz = configMessage.getGenerateSarbaaz();
         rateDeathResource = configMessage.getRateDeathResource();
+        this.viewDistance = configMessage.getViewDistance();
     }
 
     // set current state of game, includes [ant] & [chatBox], other fields are
@@ -72,7 +75,11 @@ public class Game implements World {
         Cell[][] cells = stateMessage.getVisibleCells(mapHeight, mapWidth);
         Map map = new Map(cells, mapWidth, mapHeight, stateMessage.getCurrentX(), stateMessage.getCurrentY());
 
-        return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage);
+        return new Ant(antType, AntTeam.ALLIED, attackDistance, map, stateMessage, viewDistance);
+    }
+
+    public int getViewDistance() {
+        return viewDistance;
     }
 
     public Ant getAnt() {

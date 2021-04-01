@@ -2,6 +2,7 @@ package client;
 
 
 import client.model.Answer;
+import client.model.Ant;
 import client.model.enums.Direction;
 
 /**
@@ -24,7 +25,6 @@ public class AI {
         // Enter your AI code here
         AI.turn++;
         System.out.println("turn passed!"); // this is a sample code you can easily delete this line
-
         // You can generate an answer using one of these two ways:
         Answer answer_1 = new Answer(Direction.DOWN);
         Answer answer_2 = new Answer(Direction.UP, "new message", 10);
