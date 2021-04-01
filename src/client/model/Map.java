@@ -27,7 +27,7 @@ public class Map {
      *
      * @param dx,dy are relative to current cell of ant
      */
-    public Cell getCell(int dx, int dy) {
+    public Cell getRelativeCell(int dx, int dy) {
         int x = antCurrentX + dx;
         int y = antCurrentY + dy;
 

@@ -52,7 +52,7 @@ public class Ant {
     }
 
     private Cell getMapCell(int xStep, int yStep) {
-        return visibleMap.getCell(xStep, yStep);
+        return visibleMap.getRelativeCell(xStep, yStep);
     }
 
     public Cell getNeighborCell(int xStep, int yStep) {
