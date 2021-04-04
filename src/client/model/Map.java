@@ -31,6 +31,11 @@ public class Map {
         int x = (antCurrentX + dx) % width;
         int y = (antCurrentY + dy) % height;
 
+        if (x < 0)
+            x += width;
+        if (y < 0)
+            y += height;
+
         return cells[x][y];
     }
 }
