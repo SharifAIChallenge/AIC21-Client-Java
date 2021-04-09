@@ -5,6 +5,8 @@ import client.model.Answer;
 import client.model.Ant;
 import client.model.enums.Direction;
 
+import java.util.Random;
+
 /**
  * You must put your code in this class {@link AI}.
  * This class has {@link #turn}, to do orders while game is running;
@@ -20,6 +22,7 @@ public class AI {
      * chat message and the value (if there is any message) for your message value.
      */
     static int turn = 0;
+    static int agentId = new Random().nextInt();
 
     public Answer turn(World world) {
         // Enter your AI code here
