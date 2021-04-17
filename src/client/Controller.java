@@ -105,6 +105,9 @@ public class Controller {
                 break;
             case "7":
                 System.exit(0);
+            case "8":
+                // dummy message to ignore
+                break;
             default:
                 Log.w(TAG, "Undefined message received: " + msg.type);
                 break;
