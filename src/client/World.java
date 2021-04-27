@@ -51,7 +51,7 @@ public interface World {
     public int getHealthKargar();
 
     /**
-     * @return early health of a ant which is {@link AntType#SARBAAZ}
+     * @return early health of a ant which is {@link AntType#SCORPION}
      */
     public int getHealthSarbaaz();
 

@@ -14,6 +14,8 @@ public class GameConfigMessage {
     private int mapHeight;
     @SerializedName(value = "ant_type")
     private int antType;
+    @SerializedName(value = "bases")
+    private BaseDTO[] bases;
     @SerializedName(value = "base_x")
     private int baseX;
     @SerializedName(value = "base_y")
@@ -79,5 +81,17 @@ public class GameConfigMessage {
 
     public int getViewDistance() {
         return viewDistance;
+    }
+
+    public static class BaseDTO {
+        @SerializedName(value = "x")
+        public int x;
+        @SerializedName(value = "y")
+        public int y;
+
+        public BaseDTO(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 }
