@@ -2,6 +2,7 @@ package client;
 
 import client.model.Ant;
 import client.model.ChatBox;
+import client.model.dto.config.GameConfigMessage;
 import client.model.enums.AntType;
 
 public interface World {
@@ -11,6 +12,8 @@ public interface World {
      * @return your ant object  {@link client.model.Ant}
      */
     public Ant getAnt();
+
+    public GameConfigMessage.BaseDTO[] getBases();
 
     /**
      * @return your ant type

@@ -83,6 +83,10 @@ public class GameConfigMessage {
         return viewDistance;
     }
 
+    public BaseDTO[] getBases() {
+        return bases;
+    }
+
     public static class BaseDTO {
         @SerializedName(value = "x")
         public int x;

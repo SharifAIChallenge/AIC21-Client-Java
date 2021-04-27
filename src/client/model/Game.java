@@ -28,6 +28,7 @@ public class Game implements World {
     private int generateKargar;
     private int generateSarbaaz;
     private int rateDeathResource;
+    private GameConfigMessage.BaseDTO[] bases;
 
     public Game() {
     }
@@ -45,6 +46,7 @@ public class Game implements World {
         this.generateSarbaaz = game.getGenerateSarbaaz();
         this.rateDeathResource = game.getRateDeathResource();
         this.viewDistance = game.getViewDistance();
+        this.bases = game.bases;
     }
 
     // general game config will add to game with this method
@@ -61,6 +63,12 @@ public class Game implements World {
         generateSarbaaz = configMessage.getGenerateSarbaaz();
         rateDeathResource = configMessage.getRateDeathResource();
         this.viewDistance = configMessage.getViewDistance();
+        this.bases = configMessage.getBases();
+    }
+
+    @Override
+    public GameConfigMessage.BaseDTO[] getBases() {
+        return this.bases;
     }
 
     // set current state of game, includes [ant] & [chatBox], other fields are
