@@ -49,14 +49,14 @@ public interface World {
     public int getBaseY();
 
     /**
-     * @return early health of a ant which is {@link AntType#KARGAR}
+     * @return early health of a ant which is {@link AntType#QUEEN}
      */
-    public int getHealthKargar();
+    public int getHealthQueen();
 
     /**
      * @return early health of a ant which is {@link AntType#SCORPION}
      */
-    public int getHealthSarbaaz();
+    public int getHealthScorpion();
 
     /**
      * @return maximum Manhattan distance of a target
@@ -64,14 +64,14 @@ public interface World {
     public int getAttackDistance();
 
     /**
-     * @return Bread needed to generate one Kargar  (GenerateKargar)
+     * @return Bread needed to generate one Queen  (GenerateQueen)
      */
-    public int getGenerateKargar();
+    public int getGenerateQueen();
 
     /**
      * @return Grass needed to generate one sarbaaz (GenerateSarbaaz)
      */
-    public int getGenerateSarbaaz();
+    public int getGenerateScorpion();
 
     /**
      * @return RateDeathResource

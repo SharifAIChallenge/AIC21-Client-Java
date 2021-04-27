@@ -21,12 +21,12 @@ public class Game implements World {
     private int mapHeight;
     private int baseX;
     private int baseY;
-    private int healthKargar;
-    private int healthSarbaaz;
+    private int healthQueen;
+    private int healthScorpion;
     private int attackDistance;
     private int viewDistance;
-    private int generateKargar;
-    private int generateSarbaaz;
+    private int generateQueen;
+    private int generateScorpion;
     private int rateDeathResource;
     private GameConfigMessage.BaseDTO[] bases;
 
@@ -39,11 +39,11 @@ public class Game implements World {
         this.mapHeight = game.getMapHeight();
         this.baseX = game.getBaseX();
         this.baseY = game.getBaseY();
-        this.healthKargar = game.getHealthKargar();
-        this.healthSarbaaz = game.getHealthSarbaaz();
+        this.healthQueen = game.getHealthQueen();
+        this.healthScorpion = game.getHealthScorpion();
         this.attackDistance = game.getAttackDistance();
-        this.generateKargar = game.getGenerateKargar();
-        this.generateSarbaaz = game.getGenerateSarbaaz();
+        this.generateQueen = game.getGenerateQueen();
+        this.generateScorpion = game.getGenerateScorpion();
         this.rateDeathResource = game.getRateDeathResource();
         this.viewDistance = game.getViewDistance();
         this.bases = game.bases;
@@ -56,11 +56,11 @@ public class Game implements World {
         mapHeight = configMessage.getMapHeight();
         baseX = configMessage.getBaseX();
         baseY = configMessage.getBaseY();
-        healthKargar = configMessage.getHealthKargar();
-        healthSarbaaz = configMessage.getHealthSarbaaz();
+        healthQueen = configMessage.getHealthKargar();
+        healthScorpion = configMessage.getHealthSarbaaz();
         attackDistance = configMessage.getAttackDistance();
-        generateKargar = configMessage.getGenerateKargar();
-        generateSarbaaz = configMessage.getGenerateSarbaaz();
+        generateQueen = configMessage.getGenerateKargar();
+        generateScorpion = configMessage.getGenerateSarbaaz();
         rateDeathResource = configMessage.getRateDeathResource();
         this.viewDistance = configMessage.getViewDistance();
         this.bases = configMessage.getBases();
@@ -118,24 +118,24 @@ public class Game implements World {
         return baseY;
     }
 
-    public int getHealthKargar() {
-        return healthKargar;
+    public int getHealthQueen() {
+        return healthQueen;
     }
 
-    public int getHealthSarbaaz() {
-        return healthSarbaaz;
+    public int getHealthScorpion() {
+        return healthScorpion;
     }
 
     public int getAttackDistance() {
         return attackDistance;
     }
 
-    public int getGenerateKargar() {
-        return generateKargar;
+    public int getGenerateQueen() {
+        return generateQueen;
     }
 
-    public int getGenerateSarbaaz() {
-        return generateSarbaaz;
+    public int getGenerateScorpion() {
+        return generateScorpion;
     }
 
     public int getRateDeathResource() {
