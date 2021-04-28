@@ -150,7 +150,6 @@ public class Controller {
         {
             try {
                 long start = System.currentTimeMillis();
-                System.out.println(start);
                 Answer answer = ai.turn(game);
                 long diff = System.currentTimeMillis() - start;
                 if (diff > 2000) {
