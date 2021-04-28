@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: /home/mohsen/.m2/repository/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar
-Main-Class: client.Main
